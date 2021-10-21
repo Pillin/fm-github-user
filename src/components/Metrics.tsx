@@ -8,7 +8,7 @@ const Container = styled("section")`
   justify-content: space-between;
   border-radius: 10px;
   padding: 24px;
-  background-color: ${({ theme }) => theme.background};
+  background-color: ${({ theme }) => theme().background};
   margin: 32px 0px;
   ${theme.breakpoints.mobile} {
     font-size: 11px;
@@ -20,7 +20,7 @@ const Content = styled("section")`
   display: flex;
   flex-direction: column;
   min-width: 32%;
-  color: ${({ theme }) => theme.typography.metric};
+  color: ${({ theme }) => theme().typography.metric};
 
   > div:nth-child(2) {
     font-weight: 600;

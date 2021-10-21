@@ -5,19 +5,22 @@ import SocialLink from "./SocialLink";
 import Metrics from "./Metrics";
 import TwitterIcon from "../assets/icon-twitter.svg";
 import LocationIcon from "../assets/icon-location.svg";
+import WebsiteIcon from "../assets/icon-website.svg";
+import CompanyIcon from "../assets/icon-company.svg";
 import { Theme, theme } from "../theme";
 
-const Container = styled("section") <{ theme?: Theme }> `
+const Container = styled("section")<{ theme?: Theme }>`
   display: flex;
   margin: 16px 0px;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: ${({ theme }) => theme.backgroundBox};
+  background-color: ${({ theme }) => theme().backgroundBox};
   max-width: 730px;
   min-height: 419px;
   padding: 24px;
   align-content: flex-start;
-  > picture > img, > picture   {
+  > picture > img,
+  > picture {
     width: 117px;
     height: 117px;
     border-radius: 50%;
@@ -25,14 +28,15 @@ const Container = styled("section") <{ theme?: Theme }> `
   ${theme.breakpoints.mobile} {
     flex-direction: row;
     height: auto;
-    > picture > img, > picture   {
+    > picture > img,
+    > picture {
       width: 80px;
       height: 80px;
     }
   }
 `;
 
-const Header = styled("section") <{ theme?: Theme }>`
+const Header = styled("section")<{ theme?: Theme }>`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -41,12 +45,13 @@ const Header = styled("section") <{ theme?: Theme }>`
   margin-left: 28px;
   width: calc(100% - 170px);
   ${theme.breakpoints.mobile} {
-    height: 82px;
-    width: auto;
+    max-height: 182px;
+    width: calc(100% - 110px);
+    height: auto;
   }
-`
+`;
 
-const Content = styled("section") <{ theme?: Theme }>`
+const Content = styled("section")<{ theme?: Theme }>`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -62,6 +67,10 @@ const Content = styled("section") <{ theme?: Theme }>`
 
 const Description = styled(P)`
   min-height: 40px;
+
+  ${theme.breakpoints.mobile} {
+    padding-top: 16px;
+  }
 `;
 
 const SSContent = styled("section")`
@@ -97,12 +106,12 @@ const GithubProfile = (props: {
         />
         <Header>
           <H2>{props.name}</H2>
-          <H3>{props.login}</H3>
-          <P>Joined {new Date(props.created_at).toDateString()}</P>
+          <H3>@{props.login}</H3>
+          <P>Joined {new Date(props.created_at).toLocaleDateString()}</P>
         </Header>
       </>
       <Content>
-        <Description>{props.bio}</Description>
+        <Description>{props.bio ?? "This profile has no bio"}</Description>
         <SSContent>
           <Metrics
             metrics={[
@@ -120,11 +129,11 @@ const GithubProfile = (props: {
             value={props.twitter_username}
           />
           <SocialLink
-            icon={{ src: "/src/assets/icon-website.svg", alt: "website" }}
+            icon={{ src: WebsiteIcon, alt: "website" }}
             value={props.blog}
           />
           <SocialLink
-            icon={{ src: "/src/assets/icon-company.svg", alt: "company" }}
+            icon={{ src: CompanyIcon, alt: "company" }}
             value={props.company}
           />
         </SSContent>

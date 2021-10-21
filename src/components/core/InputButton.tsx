@@ -1,4 +1,3 @@
-
 import { createSignal } from "solid-js";
 
 import { styled } from "solid-styled-components";
@@ -15,10 +14,10 @@ const Container = styled("section")`
   max-width: 730px;
 `;
 
-const Content = styled("section") <{ theme?: Theme }>`
+const Content = styled("section")<{ theme?: Theme }>`
   width: 100%;
   height: 70px;
-  background-color: ${({ theme }) => theme.backgroundBox};
+  background-color: ${({ theme }) => theme().backgroundBox};
   border-radius: 15px;
   display: flex;
   flex-direction: row;
@@ -40,13 +39,13 @@ const Input = styled("input")`
   letter-spacing: 0px;
   border-style: solid;
   border: 0px;
-  color: ${({ theme }) => theme.typography.input};
+  color: ${({ theme }) => theme().typography.input};
   outline: transparent;
-    &:focus {
+  &:focus {
     border: 0px;
   }
-    &::placeholder {
-    color: ${({ theme }) => theme.typography.input};
+  &::placeholder {
+    color: ${({ theme }) => theme().typography.input};
   }
   ${theme.breakpoints.mobile} {
     font-size: 13px;
@@ -70,9 +69,19 @@ const InputButton = (props: InputButtonProps) => {
       <label>{props.label}</label>
       <Content>
         <Icon src="/src/assets/icon-search.svg" alt="icon search" />
-        <Input placeholder="Search Github username" onChange={(e) => setName(e.target.value)} value={name()} />
+        <Input
+          placeholder="Search Github username"
+          onChange={(e) => setName(e.target.value)}
+          value={name()}
+        />
 
-        <PrimaryButton onClick={() => { changeName(name()) }}>Search</PrimaryButton>
+        <PrimaryButton
+          onClick={() => {
+            changeName(name());
+          }}
+        >
+          Search
+        </PrimaryButton>
       </Content>
     </Container>
   );

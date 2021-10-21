@@ -3,7 +3,6 @@ import { createContext, createSignal, useContext } from "solid-js";
 export const DataContext = createContext([{ name: "" }, {}]);
 
 export function DataProvider(props: any) {
-
   const [state, setState] = createSignal({ name: "" });
   const store = [
     state,
@@ -15,10 +14,10 @@ export function DataProvider(props: any) {
   ];
 
   return (
-    <DataContext.Provider value={store}>
-      {props.children}
-    </DataContext.Provider>
-  )
-};
+    <DataContext.Provider value={store}>{props.children}</DataContext.Provider>
+  );
+}
 
-export function useData() { return useContext(DataContext); }
+export function useData() {
+  return useContext(DataContext);
+}

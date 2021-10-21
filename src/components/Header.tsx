@@ -1,10 +1,10 @@
 import { styled } from "solid-styled-components";
-import { useContext } from "solid-js";
-import { Switch, Match, } from "solid-js";
+import { Switch, Match } from "solid-js";
 import { H1 } from "./Typography";
-import { Theme } from "../theme";
+import MoonIcon from "../assets/icon-moon.svg";
+import SunIcon from "../assets/icon-sun.svg";
 import { Icon } from "./Image";
-import { useTheme } from "../Contexts/Theme"
+import { useTheme } from "../Contexts/Theme";
 
 const Container = styled("section")`
   max-width: 730px;
@@ -12,6 +12,7 @@ const Container = styled("section")`
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+  padding: 32px 0px;
 `;
 
 const Button = styled("button")`
@@ -21,21 +22,24 @@ const Button = styled("button")`
   align-items: center;
   background: transparent;
   border: 0px;
-  color:${({ theme }) => theme.button.color};
-`
+  color: ${({ theme }) => theme().button.color};
+`;
 
 const DarkTheme = (props: { onClick: () => {} }) => {
-  return <Button onClick={props.onClick}>
-    DARK
-    <Icon src="/src/assets/icon-moon.svg" alt="moon" />
+  return (
+    <Button onClick={props.onClick}>
+      DARK
+      <Icon src={MoonIcon} alt="moon" />
+    </Button>
+  );
+};
+
+const WhiteTheme = (props: { onClick: () => {} }) => (
+  <Button onClick={props.onClick}>
+    LIGHT
+    <Icon src={SunIcon} alt="moon" />
   </Button>
-}
-
-const WhiteTheme = (props: { onClick: () => {} }) => <Button onClick={props.onClick}>
-  LIGHT
-  <Icon src="/src/assets/icon-sun.svg" alt="moon" />
-</Button>
-
+);
 
 const Header = (props: {}) => {
   const [state, { changeToBlack, changeToWhite }] = useTheme();
@@ -43,8 +47,12 @@ const Header = (props: {}) => {
     <Container>
       <H1>devfinder</H1>
       <Switch fallback={<DarkTheme onClick={changeToWhite} />}>
-        <Match when={state().name === "Black"}><WhiteTheme onClick={changeToWhite} /></Match>
-        <Match when={state().name === "White"}><DarkTheme onClick={changeToBlack} /></Match>
+        <Match when={state().name === "Black"}>
+          <WhiteTheme onClick={changeToWhite} />
+        </Match>
+        <Match when={state().name === "White"}>
+          <DarkTheme onClick={changeToBlack} />
+        </Match>
       </Switch>
     </Container>
   );

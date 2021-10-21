@@ -1,12 +1,11 @@
-import { createContext, createSignal, useContext, createEffect } from "solid-js";
+import { createContext, createSignal, useContext } from "solid-js";
 
 import { themes } from "../theme";
 
 export const ThemeContext = createContext([themes.base, {}]);
 
 export function ThemeProvider(props: any) {
-
-  const [state, setState] = createSignal(themes.base);
+  const [state, setState] = createSignal(themes.black);
   const store = [
     state,
     {
@@ -15,7 +14,7 @@ export function ThemeProvider(props: any) {
       },
       changeToWhite() {
         setState({ ...themes.white });
-      },
+      }
     }
   ];
 
@@ -23,7 +22,9 @@ export function ThemeProvider(props: any) {
     <ThemeContext.Provider value={store}>
       {props.children}
     </ThemeContext.Provider>
-  )
-};
+  );
+}
 
-export function useTheme() { return useContext(ThemeContext); }
+export function useTheme() {
+  return useContext(ThemeContext);
+}

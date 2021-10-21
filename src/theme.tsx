@@ -1,9 +1,8 @@
 export const baseTheme = {
   breakpoints: {
-    mobile: "@media (min-width: 0px) and (max-width: 768px)",
+    mobile: "@media (min-width: 0px) and (max-width: 768px)"
   }
-}
-
+};
 
 const blackTheme = {
   ...baseTheme,
@@ -17,7 +16,7 @@ const blackTheme = {
     h3: "#0079ff;",
     h4: "#ffffff",
     h5: "#ffffff",
-    input: "",
+    input: "white",
     metricDisabled: "#f2f2f2",
     metric: "#ffffff"
   },
